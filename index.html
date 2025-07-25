@@ -919,9 +919,14 @@
 
         async function registerUser() {
             const selectedGroup = document.getElementById('registerGroupSelect').value;
+             const name = document.getElementById('name').value;
             if (!selectedGroup) {
                 showError("การลงทะเบียนล้มเหลว", "กรุณาเลือกกลุ่ม");
                 return;
+             if (!name) {
+                showError("การลงทะเบียนล้มเหลว", "กรุณากรอกชื่อ");
+                return;
+    }
             }
             showLoading("กำลังลงทะเบียน");
             try {
@@ -934,6 +939,7 @@
                         userId: userId,
                         displayName: displayName,
                         group: selectedGroup,
+                        name:name
                         
                     })
                 });
