@@ -435,6 +435,11 @@
                     <!-- Groups will be populated dynamically -->
                 </select>
             </div>
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-400 mb-2">ชื่อนามสกุล</label>
+               <input id="name" name="name" type="text" required
+                            class="block text-sm font-medium text-gray-400 mb-2" placeholder="Enter your Name">
+            </div>
             <button id="registerButton" class="btn-gradient font-medium py-3 px-6 rounded-full w-full">
                 ลงทะเบียน
             </button>
@@ -918,6 +923,12 @@
                 showError("การลงทะเบียนล้มเหลว", "กรุณาเลือกกลุ่ม");
                 return;
             }
+            {
+            const name = document.getElementById('name').value;
+            if (!name) {
+                showError("การลงทะเบียนล้มเหลว", "กรุณาพิมพ์ชื่อนามสกุล");
+                return;
+            }
             showLoading("กำลังลงทะเบียน");
             try {
                 
@@ -928,7 +939,8 @@
                         action: "registerUser",
                         userId: userId,
                         displayName: displayName,
-                        group: selectedGroup
+                        group: selectedGroup,
+                        name:name
                     })
                 });
                 
