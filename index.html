@@ -922,12 +922,6 @@
             if (!selectedGroup) {
                 showError("การลงทะเบียนล้มเหลว", "กรุณาเลือกกลุ่ม");
                 return;
-            },
-            {
-            const name = document.getElementById('name').value;
-            if (!name) {
-                showError("การลงทะเบียนล้มเหลว", "กรุณาพิมพ์ชื่อนามสกุล");
-                return;
             }
             showLoading("กำลังลงทะเบียน");
             try {
