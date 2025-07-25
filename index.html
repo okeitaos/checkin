@@ -848,7 +848,7 @@
             }
         }
 
-        function createFlexMessage(activityName, userName, checkInTime, status) {
+        function createFlexMessage(activityName, userName, checkInTime, status,name) {
             const statusColor = status === 'ตรงเวลา' ? '#1DB446' : '#FFC107';
             return {
                 "type": "flex",
@@ -898,7 +898,7 @@
                                 "margin": "lg",
                                 "contents": [
                                     { "type": "box", "layout": "horizontal", "contents": [ { "type": "text", "text": "กิจกรรม:", "flex": 1, "color": "#aaaaaa", "size": "sm" }, { "type": "text", "text": activityName, "flex": 2,"color": "#ffffff", "wrap": true, "weight": "bold", "align": "end", "size": "sm" } ] },
-                                    { "type": "box", "layout": "horizontal", "contents": [ { "type": "text", "text": "ผู้เช็คชื่อ:", "flex": 1, "color": "#aaaaaa", "size": "sm" }, { "type": "text", "text": userName, "flex": 2,"color": "#ffffff", "wrap": true, "weight": "bold", "align": "end", "size": "sm" } ] },
+                                    { "type": "box", "layout": "horizontal", "contents": [ { "type": "text", "text": "ผู้เช็คชื่อ:", "flex": 1, "color": "#aaaaaa", "size": "sm" }, { "type": "text", "text": name, "flex": 2,"color": "#ffffff", "wrap": true, "weight": "bold", "align": "end", "size": "sm" } ] },
                                     { "type": "box", "layout": "horizontal", "contents": [ { "type": "text", "text": "เวลา:", "flex": 1, "color": "#aaaaaa", "size": "sm" }, { "type": "text", "text": checkInTime, "flex": 2,"color": "#ffffff", "wrap": true, "weight": "bold", "align": "end", "size": "sm" } ] },
                                     { "type": "box", "layout": "horizontal", "contents": [ { "type": "text", "text": "สถานะ:", "flex": 1, "color": "#aaaaaa", "size": "sm" }, { "type": "text", "text": status, "flex": 2, "wrap": true, "weight": "bold", "align": "end", "size": "sm", "color": statusColor } ] }
                                 ]
