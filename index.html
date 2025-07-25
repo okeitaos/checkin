@@ -423,23 +423,35 @@
     </div>
 
     <!-- ลงทะเบียน -->
-    <div id="registrationModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
-        <div class="bg-gray-900 rounded-2xl p-6 w-5/6 max-w-sm border border-yellow-500">
-            <div class="text-center mb-4">
-                <h3 class="text-xl font-bold text-white">ลงทะเบียนผู้ใช้งาน</h3>
-                <p class="text-gray-400 mt-2">กรุณาเลือกกลุ่มของคุณ</p>
-            </div>
-            <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-400 mb-2">กลุ่ม</label>
-                <select id="registerGroupSelect" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
-                    <!-- Groups will be populated dynamically -->
-                </select>
-            </div>
-            <button id="registerButton" class="btn-gradient font-medium py-3 px-6 rounded-full w-full">
-                ลงทะเบียน
-            </button>
-        </div>
+   <div id="registrationModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+  <div class="bg-gray-900 rounded-2xl p-6 w-5/6 max-w-sm border border-yellow-500">
+    <div class="text-center mb-4">
+      <h3 class="text-xl font-bold text-white">ลงทะเบียนผู้ใช้งาน</h3>
+      <p class="text-gray-400 mt-2">กรุณากรอกชื่อและเลือกกลุ่มของคุณ</p>
     </div>
+
+    <!-- ช่องกรอกชื่อ -->
+    <div class="mb-4">
+      <label for="nameInput" class="block text-sm font-medium text-gray-400 mb-2">ชื่อ - นามสกุล</label>
+      <input id="nameInput" type="text" placeholder="กรอกชื่อของคุณ"
+        class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+    </div>
+
+    <!-- ช่องเลือกกลุ่ม -->
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-400 mb-2">กลุ่ม</label>
+      <select id="registerGroupSelect"
+        class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500">
+        <!-- Groups will be populated dynamically -->
+      </select>
+    </div>
+
+    <button id="registerButton" class="btn-gradient font-medium py-3 px-6 rounded-full w-full">
+      ลงทะเบียน
+    </button>
+  </div>
+</div>
+
 
     <script>
        
@@ -914,7 +926,12 @@
 
         async function registerUser() {
             const selectedGroup = document.getElementById('registerGroupSelect').value;
+            const name = document.getElementById('nameInput').value;
             if (!selectedGroup) {
+                showError("การลงทะเบียนล้มเหลว", "กรุณาระบุชื่อนามสกุล");
+                return;
+            }
+            if (!name) {
                 showError("การลงทะเบียนล้มเหลว", "กรุณาเลือกกลุ่ม");
                 return;
             }
@@ -928,7 +945,8 @@
                         action: "registerUser",
                         userId: userId,
                         displayName: displayName,
-                        group: selectedGroup
+                        group: selectedGroup,
+                        name:name
                     })
                 });
                 
