@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>โปรดรอสักครู่</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="description" content="PDPA Consent" />
+    <meta name="author" content="iton5" />
+    <meta property="og:title" content="PDPA Consent-iton5-thailand" />
+    <meta property="og:description" content="PDPA Consent for LIFF App" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://lh3.googleusercontent.com/d/1Ck_OCfEW4dEp3A1k9yfQplYmW7qmwzFF" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://bit.ly/fontiton5" type="text/css" charset="utf-8" />
+    <style>
+        body {
+            font-family: 'line_seed_sans_th';
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .loader-dots span {
+            animation: pulse 1.4s infinite ease-in-out;
+        }
+
+        .loader-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loader-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <div id="loading-overlay"
+        class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-blue-900 to-blue-700 text-white transition-opacity duration-300">
+        <div class="loader-dots flex space-x-2 mb-4">
+            <span class="h-3 w-3 bg-white rounded-full"></span>
+            <span class="h-3 w-3 bg-white rounded-full"></span>
+            <span class="h-3 w-3 bg-white rounded-full"></span>
+        </div>
+        <p class="text-lg">โปรดรอสักครู่ ...</p>
+    </div>
+
+    <div id="consent-container" class="hidden min-h-screen w-full flex items-center justify-center p-4">
+        <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-lg">
+            <h1 class="text-2xl font-bold mb-4 text-center text-gray-800">นโยบายความเป็นส่วนตัว</h1>
+            <div class="text-gray-600 mb-6 max-h-60 overflow-y-auto pr-2 text-base">
+                <p class="mb-2">
+                    บริษัทของเราให้ความสำคัญกับการคุ้มครองข้อมูลส่วนบุคคลของคุณ โดยเราจะเก็บรวบรวม ใช้
+                    และเปิดเผยข้อมูลเฉพาะที่จำเป็น
+                    เพื่อให้บริการตามที่คุณร้องขอ รวมถึงการสื่อสารทางการตลาด การวิเคราะห์พฤติกรรมการใช้งาน
+                    และการพัฒนาบริการของเรา
+                </p>
+                <ul class="list-disc ml-6 mb-2">
+                    <li>ข้อมูลที่เก็บ: ชื่อ, รูปโปรไฟล์, LINE userId, ข้อมูลการใช้งานระบบ</li>
+                    <li>วัตถุประสงค์: เพื่อระบุตัวตน, จัดการสิทธิ์การใช้งาน, สื่อสารผ่าน LINE OA</li>
+                    <li>ระยะเวลาเก็บรักษา: ตามระยะเวลาที่จำเป็นต่อการให้บริการ หรือจนกว่าคุณจะถอนความยินยอม</li>
+                </ul>
+                <p>
+                    หากคุณตกลงให้ใช้ข้อมูล กรุณาติ๊กเครื่องหมายด้านล่าง และกด “ยินยอม” เพื่อดำเนินการต่อ
+                    คุณสามารถถอนความยินยอมได้ในภายหลังโดยติดต่อทีมงาน
+                </p>
+                <button onclick="window.open('https://www.lycorp.co.jp/en/company/privacypolicy_th/')"
+                    class="mt-4 px-6 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 transition">อ่านรายละเอียดเพิ่มเติม</button>
+            </div>
+            <div class="mt-6 mb-6">
+                <label class="flex items-center cursor-pointer">
+                    <input id="consentCheckbox" type="checkbox"
+                        class="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                    <span class="ml-3 text-gray-700">ข้าพเจ้ารับทราบและยินยอมตามเงื่อนไข</span>
+                </label>
+            </div>
+
+            <div class="space-y-3">
+                <button onclick="handleConsent(true)"
+                    class="w-full text-white font-bold py-3 px-4 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105">
+                    ยินยอมและไปต่อ
+                </button>
+                <button onclick="handleConsent(false)"
+                    class="w-full text-gray-600 font-bold py-3 px-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-300">
+                    ไม่ยินยอม
+                </button>
+            </div>
+            <p id="version-display" class="text-center text-xs text-gray-400 mt-6"></p>
+        </div>
+    </div>
+
+    <script>
+        // ===== ตั้งค่า version =====
+        const CURRENT_PDPA_VERSION = "v1.2";
+        // =========================
+
+        const apiEndpoint = "https://script.google.com/macros/s/AKfycby0zbUR0M1TB15T97VgSPDNbpTFKCbHFCcV1dhJaZoX1Q6PnAQv5vIptwwND7HCrmFQ/exec";
+        const LIFF_ID = "1661401303-Nx5JoV04";
+        let userId = "";
+        let redirect_uri = "";
+
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const consentContainer = document.getElementById('consent-container');
+
+        const showLoading = () => {
+            loadingOverlay.classList.remove('opacity-0');
+            loadingOverlay.classList.remove('hidden');
+        };
+        const hideLoadingAndShowConsent = () => {
+            loadingOverlay.classList.add('opacity-0');
+
+            setTimeout(() => loadingOverlay.classList.add('hidden'), 300);
+
+            consentContainer.classList.remove('hidden');
+            consentContainer.firstElementChild.classList.add('animate-fadeIn');
+        };
+
+        document.getElementById('version-display').innerText = `${CURRENT_PDPA_VERSION}`;
+
+        async function init() {
+
+            try {
+                redirect_uri = new URLSearchParams(window.location.search).get("https://liff.line.me/1661401303-Nx5JoV04?redirect_uri=https://liff.line.me/1661401303-qNo3Bx74") || "/";
+                await liff.init({ liffId: LIFF_ID, withLoginOnExternalBrowser: true });
+
+                if (!liff.isLoggedIn()) {
+                    liff.login({ redirectUri: window.location.href });
+                    return;
+                }
+
+                const profile = await liff.getProfile();
+                userId = profile.userId;
+
+                const checkUrl = `${apiEndpoint}?action=check&user_id=${userId}&client_id=pdpa-web&version=${CURRENT_PDPA_VERSION}&_=${Date.now()}`;
+                const response = await fetch(checkUrl);
+                const result = await response.json();
+                const friendship = await liff.getFriendship();
+                if (!friendship.friendFlag) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'เดี๋ยวก่อน!',
+                        text: 'คุณยังไม่ได้เป็นเพื่อนกับเรา',
+                        confirmButtonText: 'เพิ่มเพื่อน',
+                    }).then(() => {
+                        window.location = 'https://line.me/R/ti/p/@162irpmw';
+                    });
+                    return;
+                }
+
+                if (result.consent === true && result.versionMatch === true) {
+
+                    window.location.replace(redirect_uri);
+                } else {
+
+                    hideLoadingAndShowConsent();
+                }
+
+            } catch (error) {
+                console.error("Initialization failed:", error);
+                loadingOverlay.innerHTML = `<p class="text-lg text-red-300">เกิดข้อผิดพลาดในการเริ่มต้น</p>`;
+            }
+        }
+
+        async function handleConsent(didAgree) {
+            if (didAgree && !document.getElementById("consentCheckbox").checked) {
+
+                Swal.fire('Oop!', "กรุณายอมรับเงื่อนไขก่อนดำเนินการต่อ", 'info');
+                return;
+            }
+
+            showLoading();
+
+            try {
+                const ip = await fetch("https://api.ipify.org?format=json").then(res => res.json()).then(d => d.ip);
+                const params = new URLSearchParams({
+                    action: "submit",
+                    user_id: userId,
+                    client_id: "pdpa-web",
+                    consent: didAgree,
+                    version: CURRENT_PDPA_VERSION,
+                    scope: "profile",
+                    ip: ip,
+                });
+
+                await fetch(`${apiEndpoint}?${params.toString()}`);
+
+                if (didAgree) {
+                    window.location.href = redirect_uri;
+                } else {
+                    liff.closeWindow();
+                }
+
+            } catch (error) {
+                console.error("Submission failed:", error);
+
+                Swal.fire('error!', "เกิดข้อผิดพลาดในการส่งข้อมูล", 'error');
+                hideLoadingAndShowConsent();
+            }
+        }
+
+        init();
+      
+         const message = "ไม่อนุญาตให้คลิกขวาครับ";
+
+        document.addEventListener("contextmenu", function (e) {
+            Swal.fire('Oh!', message, 'error');
+
+            e.preventDefault();
+        });
+
+        document.addEventListener("mousedown", function (e) {
+            if (e.button === 2 || e.button === 1) {
+                Swal.fire('Oh!', message, 'error');
+
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+
+</html>
